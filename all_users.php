@@ -28,7 +28,34 @@
 
         echo "All users";
 		echo "<br/>";
- 
+	?>
+		
+	<form method="post" action="all_users.php">
+	
+	    <label for="lettre">Start with letter</label>
+		<input type="text" id = "lettre" name = "lettre" required maxlength ="1" size="2"/>
+		
+		<label for="status">and status is</label>
+		<select type="select" name = "status"/>
+			<option value="1">Waiting for account validation</option>
+			<option value="2">Active account</option>
+		</select>
+		
+		<input type="submit" value="Rechercher" />
+	
+	</form>
+	
+	<?php
+	    if (isset($_POST['lettre'])) {
+            $lettre_username = $_POST['lettre'];
+        }
+		
+		if (isset($_POST['status'])) {
+            $status_username = $_POST['status'];
+        }
+	?>
+		
+	<?php
         echo "<table>";
 		echo "<tr>";
 			echo "<th>";
@@ -44,15 +71,25 @@
 				echo 'Status';
 			echo "</th>";
 		echo "</tr>";
+		
 		$status_id = 2;
 		$username = "e";
+		
+		if (isset($status_username, $lettre_username)) {
 		$stmt = $pdo->query('SELECT users.id, username, email, status.name 
 		                     FROM users 
 		                     JOIN status 
 		                     ON users.status_id = status.id
-							 WHERE status.id = "'.$status_id.'"
-							 AND username LIKE "'.$username.'%"
+							 WHERE status.id = "'.$status_username.'"
+							 AND username LIKE "'.$lettre_username.'%"
 							 ORDER BY username');
+	    } else {
+		$stmt = $pdo->query('SELECT users.id, username, email, status.name 
+		                     FROM users 
+		                     JOIN status 
+		                     ON users.status_id = status.id
+							 ORDER BY username');	
+		}
 			while ($row = $stmt->fetch()) {
 				echo "<tr>";
 				    echo "<td>";
