@@ -30,7 +30,7 @@
 		echo "<br/>";
  
         echo "<table>";
-        $stmt = $pdo->query('SELECT user.id, username, email, status.name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
+		$stmt = $pdo->query('SELECT users.id, username, email, status.name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
 			while ($row = $stmt->fetch()) {
 				echo "<tr>";
 				    echo "<td>";
@@ -43,7 +43,7 @@
 						echo $row['email']. "\n";
 					echo "</td>";
 					echo "<td>";
-						echo $row['status_id']. "\n";
+						echo $row['name']. "\n";
 					echo "</td>";
 				echo "</tr>";
 			}
