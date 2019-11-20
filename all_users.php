@@ -30,7 +30,29 @@
 		echo "<br/>";
  
         echo "<table>";
-		$stmt = $pdo->query('SELECT users.id, username, email, status.name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
+		echo "<tr>";
+			echo "<th>";
+				echo 'Id';	
+			echo "</th>";
+			echo "<th>";
+				echo 'Username';	
+			echo "</th>";
+			echo "<th>";
+				echo 'Email';	
+			echo "</th>";
+			echo "<th>";
+				echo 'Status';
+			echo "</th>";
+		echo "</tr>";
+		$status_id = 2;
+		$username = "e";
+		$stmt = $pdo->query('SELECT users.id, username, email, status.name 
+		                     FROM users 
+		                     JOIN status 
+		                     ON users.status_id = status.id
+							 WHERE status.id = "'.$status_id.'"
+							 AND username LIKE "'.$username.'%"
+							 ORDER BY username');
 			while ($row = $stmt->fetch()) {
 				echo "<tr>";
 				    echo "<td>";
