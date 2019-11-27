@@ -130,7 +130,13 @@ table {
 			echo "<td>";
 				echo $row['name'];
 			echo "</td>";
-			
+			if($row['name'] != "Waiting for account deletion") {
+				echo "<td>";
+					
+					echo "<a href='all_users.php?status_id=3&user_id=".$row['id']."&action=askDeletion'> Ask deletion</a>";
+					
+				echo "</td>";
+			}
 			
 		echo "</tr>";
 	}
